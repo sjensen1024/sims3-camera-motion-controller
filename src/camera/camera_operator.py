@@ -11,37 +11,35 @@ class CameraOperator:
         self.movement_tracker = MovementTracker()
 
     def power_on(self):
-        if self.is_powered_on: return
-        self.__hit_key(KeySet.POWER.value)
-        self.is_powered_on = True
+        self.__process_standard_toggle_on_key_hit('is_powered_on', KeySet.POWER.value)
 
     def power_off(self):
-        if not self.is_powered_on: return
-        self.__hit_key(KeySet.POWER.value)
-        self.is_powered_on = False
+        self.__process_standard_toggle_off_key_hit('is_powered_on', KeySet.POWER.value)
 
     def start_recording(self):
-        if self.is_recording: return
-        self.__hit_key(KeySet.RECORD.value)
-        self.is_recording = True
+        self.__process_standard_toggle_on_key_hit('is_recording', KeySet.RECORD.value)
 
     def stop_recording(self):
-        if not self.is_recording: return
-        self.__hit_key(KeySet.RECORD.value)
-        self.is_recording = False
+        self.__process_standard_toggle_off_key_hit('is_recording', KeySet.RECORD.value)
 
     def pause_gameplay(self):
-        if self.is_gameplay_paused: return
-        self.__hit_key(KeySet.PAUSE.value)
-        self.is_gameplay_paused = True
+        self.__process_standard_toggle_on_key_hit('is_gameplay_paused', KeySet.PAUSE.value)
 
     def unpause_gameplay(self):
-        if not self.is_gameplay_paused: return
-        self.__hit_key(KeySet.PAUSE.value)
-        self.is_gameplay_paused = False
+        self.__process_standard_toggle_off_key_hit('is_gameplay_paused', KeySet.PAUSE.value)
 
     def take_snapshot(self):
         self.__hit_key(KeySet.SNAPSHOT.value)
+
+    def __process_standard_toggle_on_key_hit(self, attribute_name, key_set_to_hit):
+        if getattr(self, attribute_name): return
+        self.__hit_key(key_set_to_hit)
+        setattr(self, attribute_name, True)
+        
+    def __process_standard_toggle_off_key_hit(self, attribute_name, key_set_to_hit):
+        if not getattr(self, attribute_name): return
+        self.__hit_key(key_set_to_hit)
+        setattr(self, attribute_name, False)
 
     def __hit_key(self, key):
         self.key_operator.press_keys_without_holding([key])
