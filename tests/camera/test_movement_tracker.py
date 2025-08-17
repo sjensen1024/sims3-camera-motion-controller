@@ -69,6 +69,42 @@ class TestMovementTracker(unittest.TestCase):
     def test_when_stop_moving_forward_given_is_not_moving_forward_yet_then_should_stay_not_moving_forward(self):
          self.__test_stop_movement_when_not_started_yet("stop_moving_forward", "is_moving_forward")
 
+    def test_when_start_moving_backward_given_is_not_already_moving_backward_then_should_start_moving_backward_and_stop_moving_forward(self):
+        self.__test_start_movement_when_not_started_yet("start_moving_backward", "is_moving_backward", KeySet.MOVE_BACKWARD.value, "stop_moving_forward")
+
+    def test_when_start_moving_backward_given_is_already_moving_backward_then_should_keep_moving_backward_without_doing_anything_else(self):
+        self.__test_start_movement_when_already_started("start_moving_backward", "is_moving_backward", "stop_moving_forward")
+
+    def test_when_stop_moving_backward_given_is_moving_backward_then_should_stop_moving_backward(self):
+        self.__test_stop_movement_when_started("stop_moving_backward", "is_moving_backward", KeySet.MOVE_BACKWARD.value)
+
+    def test_when_stop_moving_backward_given_is_not_moving_backward_yet_then_should_stay_not_moving_backward(self):
+         self.__test_stop_movement_when_not_started_yet("stop_moving_backward", "is_moving_backward")
+
+    def test_when_start_moving_left_given_is_not_already_moving_left_then_should_start_moving_left_and_stop_moving_right(self):
+        self.__test_start_movement_when_not_started_yet("start_moving_left", "is_moving_left", KeySet.MOVE_LEFT.value, "stop_moving_right")
+
+    def test_when_start_moving_left_given_is_already_moving_left_then_should_keep_moving_left_without_doing_anything_else(self):
+        self.__test_start_movement_when_already_started("start_moving_left", "is_moving_left", "stop_moving_right")
+
+    def test_when_stop_moving_left_given_is_moving_left_then_should_stop_moving_left(self):
+        self.__test_stop_movement_when_started("stop_moving_left", "is_moving_left", KeySet.MOVE_LEFT.value)
+
+    def test_when_stop_moving_left_given_is_not_moving_left_yet_then_should_stay_not_moving_left(self):
+         self.__test_stop_movement_when_not_started_yet("stop_moving_left", "is_moving_left")
+
+    def test_when_start_moving_right_given_is_not_already_moving_right_then_should_start_moving_right_and_stop_moving_left(self):
+        self.__test_start_movement_when_not_started_yet("start_moving_right", "is_moving_right", KeySet.MOVE_RIGHT.value, "stop_moving_left")
+
+    def test_when_start_moving_right_given_is_already_moving_right_then_should_keep_moving_right_without_doing_anything_else(self):
+        self.__test_start_movement_when_already_started("start_moving_right", "is_moving_right", "stop_moving_left")
+
+    def test_when_stop_moving_right_given_is_moving_right_then_should_stop_moving_right(self):
+        self.__test_stop_movement_when_started("stop_moving_right", "is_moving_right", KeySet.MOVE_RIGHT.value)
+
+    def test_when_stop_moving_right_given_is_not_moving_right_yet_then_should_stay_not_moving_right(self):
+         self.__test_stop_movement_when_not_started_yet("stop_moving_right", "is_moving_right")
+
     def __test_start_movement_when_not_started_yet(self, start_movement_method_name, movement_attribute_name, expected_key_set, countermovement_method_name):
         countermovement_method = getattr(self.movement_tracker, countermovement_method_name)
         self.original_countermovement_method = countermovement_method
