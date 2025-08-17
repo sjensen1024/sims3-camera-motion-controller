@@ -41,6 +41,68 @@ class MovementTracker:
     def stop_moving_right(self):
         self.__process_standard_stop_movement('is_moving_right', KeySet.MOVE_RIGHT.value)
 
+    def start_raising(self):
+        self.__process_standard_start_movement('is_raising', KeySet.RAISE.value, ['stop_lowering'])
+
+    def stop_raising(self):
+        self.__process_standard_stop_movement('is_raising', KeySet.RAISE.value)
+
+    def start_lowering(self):
+        self.__process_standard_start_movement('is_lowering', KeySet.LOWER.value, ['stop_raising'])
+
+    def stop_lowering(self):
+        self.__process_standard_stop_movement('is_lowering', KeySet.LOWER.value)
+
+    def start_zooming_in(self):
+        self.__process_standard_start_movement('is_zooming_in', KeySet.ZOOM_IN.value, ['stop_zooming_out'])
+    
+    def stop_zooming_in(self):
+        self.__process_standard_stop_movement('is_zooming_in', KeySet.ZOOM_IN.value)
+
+    def start_zooming_out(self):
+        self.__process_standard_start_movement('is_zooming_out', KeySet.ZOOM_OUT.value, ['stop_zooming_in'])
+
+    def stop_zooming_out(self):
+        self.__process_standard_stop_movement('is_zooming_out', KeySet.ZOOM_OUT.value)
+
+    def start_rotating_left(self):
+        self.__process_standard_start_movement('is_rotating_left', KeySet.ROTATE_LEFT.value, ['stop_rotating_right'])
+
+    def stop_rotating_left(self):
+        self.__process_standard_stop_movement('is_rotating_left', KeySet.ROTATE_LEFT.value)
+
+    def start_rotating_right(self):
+        self.__process_standard_start_movement('is_rotating_right', KeySet.ROTATE_RIGHT.value, ['stop_rotating_left'])
+
+    def stop_rotating_right(self):
+        self.__process_standard_stop_movement('is_rotating_right', KeySet.ROTATE_RIGHT.value)
+
+    def start_turning_left(self):
+        self.__process_standard_start_movement('is_turning_left', KeySet.TURN_LEFT.value, ['stop_turning_right'])
+
+    def stop_turning_left(self):
+        self.__process_standard_stop_movement('is_turning_left', KeySet.TURN_LEFT.value)
+
+    def start_turning_right(self):
+        self.__process_standard_start_movement('is_turning_right', KeySet.TURN_RIGHT.value, ['stop_turning_left'])
+
+    def stop_turning_right(self):
+        self.__process_standard_stop_movement('is_turning_right', KeySet.TURN_RIGHT.value)
+
+    def stop_all_tracked_movements(self):
+        self.stop_moving_forward()
+        self.stop_moving_backward()
+        self.stop_moving_left()
+        self.stop_moving_right()
+        self.stop_raising()
+        self.stop_lowering()
+        self.stop_zooming_in()
+        self.stop_zooming_out()
+        self.stop_rotating_left()
+        self.stop_rotating_right()
+        self.stop_turning_left()
+        self.stop_turning_right()
+
     def __process_standard_start_movement(self, attribute_name, key_set_to_press, impossible_movements_to_stop = []):
         if getattr(self, attribute_name): return
         for impossible_movement_to_stop in impossible_movements_to_stop:
