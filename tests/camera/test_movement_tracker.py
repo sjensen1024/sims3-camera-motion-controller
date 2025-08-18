@@ -80,6 +80,39 @@ class TestMovementTracker(unittest.TestCase):
         self.__test_that_all_movement_tracking_boolean_attributes_are_false()
         self.__teardown_release_keys_mock()
 
+    def test_when_level_out_then_should_hit_correct_key_and_stop_all_tracked_movements(self):
+         self.__test_method_that_hits_keys_and_stops_all_other_movements('level_out', KeySet.LEVEL_OUT.value)
+
+    def test_when_move_to_position_5_then_should_hit_correct_key_and_stop_all_tracked_movements(self):
+         self.__test_method_that_hits_keys_and_stops_all_other_movements('move_to_position_5', KeySet.MOVE_TO_POSITION_5.value)
+
+    def test_when_move_to_position_6_then_should_hit_correct_key_and_stop_all_tracked_movements(self):
+         self.__test_method_that_hits_keys_and_stops_all_other_movements('move_to_position_6', KeySet.MOVE_TO_POSITION_6.value)
+
+    def test_when_move_to_position_7_then_should_hit_correct_key_and_stop_all_tracked_movements(self):
+         self.__test_method_that_hits_keys_and_stops_all_other_movements('move_to_position_7', KeySet.MOVE_TO_POSITION_7.value)
+
+    def test_when_move_to_position_8_then_should_hit_correct_key_and_stop_all_tracked_movements(self):
+         self.__test_method_that_hits_keys_and_stops_all_other_movements('move_to_position_8', KeySet.MOVE_TO_POSITION_8.value)
+
+    def test_when_move_to_position_9_then_should_hit_correct_key_and_stop_all_tracked_movements(self):
+         self.__test_method_that_hits_keys_and_stops_all_other_movements('move_to_position_9', KeySet.MOVE_TO_POSITION_9.value)
+
+    def test_when_snap_to_position_5_then_should_hit_correct_key_and_stop_all_tracked_movements(self):
+         self.__test_method_that_hits_keys_and_stops_all_other_movements('snap_to_position_5', KeySet.SNAP_TO_POSITION_5.value)
+
+    def test_when_snap_to_position_6_then_should_hit_correct_key_and_stop_all_tracked_movements(self):
+         self.__test_method_that_hits_keys_and_stops_all_other_movements('snap_to_position_6', KeySet.SNAP_TO_POSITION_6.value)
+
+    def test_when_snap_to_position_7_then_should_hit_correct_key_and_stop_all_tracked_movements(self):
+         self.__test_method_that_hits_keys_and_stops_all_other_movements('snap_to_position_7', KeySet.SNAP_TO_POSITION_7.value)
+
+    def test_when_snap_to_position_8_then_should_hit_correct_key_and_stop_all_tracked_movements(self):
+         self.__test_method_that_hits_keys_and_stops_all_other_movements('snap_to_position_8', KeySet.SNAP_TO_POSITION_8.value)
+
+    def test_when_snap_to_position_9_then_should_hit_correct_key_and_stop_all_tracked_movements(self):
+         self.__test_method_that_hits_keys_and_stops_all_other_movements('snap_to_position_9', KeySet.SNAP_TO_POSITION_9.value)
+
     def __test_start_and_stop_method_scenarios_for_standard_movement(self, 
                                                                      start_movement_method_name, 
                                                                      stop_movement_method_name, 
@@ -155,6 +188,18 @@ class TestMovementTracker(unittest.TestCase):
         self.assertFalse(self.movement_tracker.is_rotating_right)
         self.assertFalse(self.movement_tracker.is_turning_left)
         self.assertFalse(self.movement_tracker.is_turning_right)
+
+    def __test_method_that_hits_keys_and_stops_all_other_movements(self, method_name, keys):
+        self.original_hit_keys = KeyOperator.press_keys_without_holding
+        KeyOperator.press_keys_without_holding = MagicMock("test_movement_tracker__press_keys_without_holding")
+        self.original_stop_all_tracked_movements = MovementTracker.stop_all_tracked_movements
+        MovementTracker.stop_all_tracked_movements = MagicMock("test_movement_tracker__stop_all_tracked_movements")
+        method_to_test = getattr(self.movement_tracker, method_name)
+        method_to_test()
+        self.test_util.assert_called_with_args_x_times(KeyOperator.press_keys_without_holding, [keys], 1)
+        MovementTracker.stop_all_tracked_movements.assert_called()
+        KeyOperator.press_keys_without_holding = self.original_hit_keys
+        MovementTracker.stop_all_tracked_movements = self.original_stop_all_tracked_movements
 
     def __setup_press_keys_mock(self):
         self.original_press_keys = KeyOperator.press_keys

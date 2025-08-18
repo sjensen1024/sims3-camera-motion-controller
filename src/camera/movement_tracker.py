@@ -89,6 +89,39 @@ class MovementTracker:
     def stop_turning_right(self):
         self.__process_standard_stop_movement('is_turning_right', KeySet.TURN_RIGHT.value)
 
+    def level_out(self):
+        self.__process_movement_that_stops_all_others(KeySet.LEVEL_OUT.value)
+
+    def move_to_position_5(self):
+        self.__process_movement_that_stops_all_others(KeySet.MOVE_TO_POSITION_5.value)
+
+    def move_to_position_6(self):
+        self.__process_movement_that_stops_all_others(KeySet.MOVE_TO_POSITION_6.value)
+
+    def move_to_position_7(self):
+        self.__process_movement_that_stops_all_others(KeySet.MOVE_TO_POSITION_7.value)
+
+    def move_to_position_8(self):
+        self.__process_movement_that_stops_all_others(KeySet.MOVE_TO_POSITION_8.value)
+
+    def move_to_position_9(self):
+        self.__process_movement_that_stops_all_others(KeySet.MOVE_TO_POSITION_9.value)
+
+    def snap_to_position_5(self):
+        self.__process_movement_that_stops_all_others(KeySet.SNAP_TO_POSITION_5.value)
+
+    def snap_to_position_6(self):
+        self.__process_movement_that_stops_all_others(KeySet.SNAP_TO_POSITION_6.value)
+
+    def snap_to_position_7(self):
+        self.__process_movement_that_stops_all_others(KeySet.SNAP_TO_POSITION_7.value)
+
+    def snap_to_position_8(self):
+        self.__process_movement_that_stops_all_others(KeySet.SNAP_TO_POSITION_8.value)
+
+    def snap_to_position_9(self):
+        self.__process_movement_that_stops_all_others(KeySet.SNAP_TO_POSITION_9.value)
+
     def stop_all_tracked_movements(self):
         self.stop_moving_forward()
         self.stop_moving_backward()
@@ -115,3 +148,7 @@ class MovementTracker:
         if not getattr(self, attribute_name): return
         self.key_operator.release_keys(key_set_to_release)
         setattr(self, attribute_name, False)
+
+    def __process_movement_that_stops_all_others(self, key_set_to_hit):
+        self.key_operator.press_keys_without_holding(key_set_to_hit)
+        self.stop_all_tracked_movements()
