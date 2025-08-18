@@ -3,7 +3,7 @@ from src.input.key_set import KeySet
 
 class MovementTracker:
     def __init__(self):
-        self.key_operator = KeyOperator
+        self.key_operator = KeyOperator()
         self.is_moving_forward = False
         self.is_moving_backward = False
         self.is_moving_left = False
