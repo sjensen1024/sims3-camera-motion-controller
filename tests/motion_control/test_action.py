@@ -1,13 +1,11 @@
 import unittest
 from unittest.mock import MagicMock
-from tests.support.test_util import TestUtil
 from src.camera.camera_operator import CameraOperator
 from src.camera.movement_tracker import MovementTracker
 from src.motion_control.action import Action
 
 class TestMotionControlAction(unittest.TestCase):
     def setUp(self):
-        self.test_util = TestUtil()
         self.original_camera_operator_power_on = CameraOperator.power_on
         CameraOperator.power_on = MagicMock("test_action__camera_operator_power_on")
         self.original_movement_tracker_start_moving_forward = MovementTracker.start_moving_forward
