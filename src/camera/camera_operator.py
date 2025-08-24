@@ -29,18 +29,18 @@ class CameraOperator:
         self.__process_standard_toggle_off_key_hit('is_gameplay_paused', KeySet.PAUSE.value)
 
     def take_snapshot(self):
-        self.__hit_key(KeySet.SNAPSHOT.value)
+        self.__hit_keys(KeySet.SNAPSHOT.value)
 
     def __process_standard_toggle_on_key_hit(self, attribute_name, key_set_to_hit):
         if getattr(self, attribute_name): return
-        self.__hit_key(key_set_to_hit)
+        self.__hit_keys(key_set_to_hit)
         setattr(self, attribute_name, True)
         
     def __process_standard_toggle_off_key_hit(self, attribute_name, key_set_to_hit):
         if not getattr(self, attribute_name): return
-        self.__hit_key(key_set_to_hit)
+        self.__hit_keys(key_set_to_hit)
         setattr(self, attribute_name, False)
 
-    def __hit_key(self, key):
-        self.key_operator.press_keys_without_holding([key])
+    def __hit_keys(self, keys):
+        self.key_operator.press_keys_without_holding(keys)
     
