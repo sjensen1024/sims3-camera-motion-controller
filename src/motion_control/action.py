@@ -1,13 +1,11 @@
 from decimal import Decimal
 
 class Action:
-    def __init__(self, run_at_this_many_seconds_in, caller, method_name):
+    def __init__(self, run_at_this_many_seconds_in, method_to_call):
         self.run_at_this_many_seconds_in = Decimal(str(run_at_this_many_seconds_in))
-        self.caller = caller
-        self.method_name = method_name
+        self.method_to_call = method_to_call
     
     def run(self):
-        method_to_call = getattr(self.caller, self.method_name)
-        print(f"Running {self.method_name} from instance of {str(self.caller.__class__)} at {self.run_at_this_many_seconds_in} seconds")
-        method_to_call()
+        print(f"Running {str(self.method_to_call)} at {self.run_at_this_many_seconds_in} seconds")
+        self.method_to_call()
         

@@ -11,9 +11,9 @@ class TestMotionControlAction(unittest.TestCase):
         self.original_movement_tracker_start_moving_forward = MovementTracker.start_moving_forward
         MovementTracker.start_moving_forward = MagicMock("test_action__movement_tracker_start_moving_forward")
         self.test_camera_operator = CameraOperator()
-        self.test_camera_operator_action = Action(0.5, self.test_camera_operator, "power_on")
+        self.test_camera_operator_action = Action(0.5, self.test_camera_operator.power_on)
         self.test_movement_tracker = MovementTracker()
-        self.test_movement_tracker_action = Action(1.5, self.test_movement_tracker, "start_moving_forward")
+        self.test_movement_tracker_action = Action(1.5, self.test_movement_tracker.start_moving_forward)
 
     def tearDown(self):
         CameraOperator.power_on = self.original_camera_operator_power_on
@@ -23,8 +23,7 @@ class TestMotionControlAction(unittest.TestCase):
        self.__assert_action_is_initialized_correctly(
            self.test_camera_operator_action, 
            0.5, 
-           self.test_camera_operator, 
-           "power_on"
+           self.test_camera_operator.power_on
         )
        self.__assert_run_calls_method_from_caller(self.test_camera_operator_action)
 
@@ -32,19 +31,16 @@ class TestMotionControlAction(unittest.TestCase):
         self.__assert_action_is_initialized_correctly(
             self.test_movement_tracker_action, 
             1.5, 
-            self.test_movement_tracker, 
-            "start_moving_forward"
+            self.test_movement_tracker.start_moving_forward
         )
         self.__assert_run_calls_method_from_caller(self.test_movement_tracker_action)
 
 
-    def __assert_action_is_initialized_correctly(self, action, expected_seconds_in, expected_caller, expected_caller_method):
+    def __assert_action_is_initialized_correctly(self, action, expected_seconds_in, expected_method_to_call):
         self.assertEqual(action.run_at_this_many_seconds_in, expected_seconds_in)
-        self.assertEqual(action.caller, expected_caller)
-        self.assertEqual(action.method_name, expected_caller_method)
+        self.assertEqual(action.method_to_call, expected_method_to_call)
 
     def __assert_run_calls_method_from_caller(self, action):
         action.run()
-        expected_call = getattr(action.caller, action.method_name)
-        expected_call.assert_called()
+        action.method_to_call.assert_called()
         
