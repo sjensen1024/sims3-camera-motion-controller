@@ -33,14 +33,12 @@ class Sequence:
         total_increments = 0
         index_counter = 0
         while total_increments <= self.duration_in_seconds:
-            actions_at_this_increment = []
-            for action in self.actions:
-                if action.run_at_this_many_seconds_in == total_increments:
-                    actions_at_this_increment.append(action)
-            self.actions_per_increment.append(actions_at_this_increment)
+            self.actions_per_increment.append(self.__get_actions_at_this_increment(total_increments))
             total_increments += self.increment_in_seconds
             index_counter += 1
 
+    def __get_actions_at_this_increment(self, this_increment):
+        return [ action for action in self.actions if action.run_at_this_many_seconds_in == this_increment ]
+
     def __run_action_at_increment_index(self, index):
-        actions = self.actions_per_increment[index]
-        [action.run() for action in actions]
+        [action.run() for action in self.actions_per_increment[index]]
