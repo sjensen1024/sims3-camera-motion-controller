@@ -9,39 +9,38 @@ class Sequence:
             self.duration_in_seconds = 10
         self.duration_in_seconds = Decimal(str(self.duration_in_seconds))
         self.actions = []
-        self.action_timings = []
+        self.actions_per_increment = []
         self.increment_in_seconds = Decimal("0.5")
 
     def add_action(self, action):
         self.actions.append(action)
 
     def run(self):
-        self.__setup_action_timings()
+        self.__setup_actions_per_increment()
         total_increments = 0
         index_counter = 0
         while total_increments <= self.duration_in_seconds:
             if total_increments == 0:
                 print("Starting sequence!")
             print(f"{total_increments} second mark...")
-            self.__run_action_timing_at_index(index_counter)
+            self.__run_action_at_increment_index(index_counter)
             time.sleep(self.increment_in_seconds)
             total_increments += self.increment_in_seconds
             index_counter += 1
         print("Sequence finished!")
 
-    def __setup_action_timings(self):
+    def __setup_actions_per_increment(self):
         total_increments = 0
         index_counter = 0
         while total_increments <= self.duration_in_seconds:
-            self.action_timings.append(None)
+            actions_at_this_increment = []
             for action in self.actions:
                 if action.run_at_this_many_seconds_in == total_increments:
-                    self.action_timings[index_counter] = action
+                    actions_at_this_increment.append(action)
+            self.actions_per_increment.append(actions_at_this_increment)
             total_increments += self.increment_in_seconds
             index_counter += 1
 
-    def __run_action_timing_at_index(self, index):
-        action = self.action_timings[index]
-        if action is None:
-            return
-        action.run()
+    def __run_action_at_increment_index(self, index):
+        actions = self.actions_per_increment[index]
+        [action.run() for action in actions]
