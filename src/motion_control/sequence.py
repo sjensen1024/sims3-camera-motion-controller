@@ -16,29 +16,29 @@ class Sequence:
         self.actions.append(action)
 
     def run(self):
-        self.__setup_actions_per_increment()
+        self._setup_actions_per_increment()
         total_increments = 0
         index_counter = 0
         while total_increments <= self.duration_in_seconds:
             if total_increments == 0:
                 print("Starting sequence!")
             print(f"{total_increments} second mark...")
-            self.__run_action_at_increment_index(index_counter)
+            self._run_action_at_increment_index(index_counter)
             total_increments += self.increment_in_seconds
             index_counter += 1
             time.sleep(float(self.increment_in_seconds))
         print("Sequence finished!")
 
-    def __setup_actions_per_increment(self):
+    def _setup_actions_per_increment(self):
         total_increments = 0
         index_counter = 0
         while total_increments <= self.duration_in_seconds:
-            self.actions_per_increment.append(self.__get_actions_at_this_increment(total_increments))
+            self.actions_per_increment.append(self._get_actions_at_this_increment(total_increments))
             total_increments += self.increment_in_seconds
             index_counter += 1
 
-    def __get_actions_at_this_increment(self, this_increment):
+    def _get_actions_at_this_increment(self, this_increment):
         return [ action for action in self.actions if action.run_at_this_many_seconds_in == this_increment ]
 
-    def __run_action_at_increment_index(self, index):
+    def _run_action_at_increment_index(self, index):
         [action.run() for action in self.actions_per_increment[index]]

@@ -20,27 +20,27 @@ class TestMotionControlAction(unittest.TestCase):
         MovementTracker.start_moving_forward = self.original_movement_tracker_start_moving_forward
 
     def test_suite_for_camera_operator_action(self):
-       self.__assert_action_is_initialized_correctly(
+       self._assert_action_is_initialized_correctly(
            self.test_camera_operator_action, 
            0.5, 
            self.test_camera_operator.power_on
         )
-       self.__assert_run_calls_method_from_caller(self.test_camera_operator_action)
+       self._assert_run_calls_method_from_caller(self.test_camera_operator_action)
 
     def test_suite_for_movement_tracker_action(self):
-        self.__assert_action_is_initialized_correctly(
+        self._assert_action_is_initialized_correctly(
             self.test_movement_tracker_action, 
             1.5, 
             self.test_movement_tracker.start_moving_forward
         )
-        self.__assert_run_calls_method_from_caller(self.test_movement_tracker_action)
+        self._assert_run_calls_method_from_caller(self.test_movement_tracker_action)
 
 
-    def __assert_action_is_initialized_correctly(self, action, expected_seconds_in, expected_method_to_call):
+    def _assert_action_is_initialized_correctly(self, action, expected_seconds_in, expected_method_to_call):
         self.assertEqual(action.run_at_this_many_seconds_in, expected_seconds_in)
         self.assertEqual(action.method_to_call, expected_method_to_call)
 
-    def __assert_run_calls_method_from_caller(self, action):
+    def _assert_run_calls_method_from_caller(self, action):
         action.run()
         action.method_to_call.assert_called()
         
