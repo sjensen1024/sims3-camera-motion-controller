@@ -5,12 +5,24 @@ This is a command line tool that acts as a motion controller
 for the Sims 3 in-game camera.
 
 ## Running the Program
+
+### How to run it in-general
 - Navigate to the project in command prompt
 - Run `python . --use=(file)`, with file being the YAML file relative to the workspace directory.
-  - Example: to run using workspace/demo.yaml, run `python . --use=demo.yaml`
 - The program will tell you to open your game window. Do that within 10 seconds of starting he program.
 - Once it starts, it will go through the sequence, printing out its current point in the sequence
   and which action it's running, if any. At the end, it will print out a message saying the sequence is finished.
+
+### Trying it out with demo.yaml
+- If you haven't set up a camera position yet,
+  go into cameraman mode (Tab key) and press ctrl+5.
+  This will make it so that if you press 5 while in cameraman mode,
+  then the camera will move to the position at which you pressed ctrl+5.
+  The game will allow you to save positions 5-9, but the demo.yaml will look for 5.
+- After you've ensured you have a camera position 5, put your game back in regular gameplay mode,
+  pause it, and minimize the game window (Window key).
+- Follow the instructions for "running the program" above, but with `python . --use=demo.yaml`
+- The demo will test out certain operations/movements save a video and snapshot.
 
 ## Configuring Your Own Camera Motion Controls 
 
