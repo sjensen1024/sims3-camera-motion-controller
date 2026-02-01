@@ -1,0 +1,52 @@
+sequence_length_in_seconds: 40
+sequence_actions:
+  - run_at_second_mark: 2
+    action_to_run: unpause_gameplay
+  - run_at_second_mark: 2.5
+    action_to_run: power_on
+  - run_at_second_mark: 3.5
+    action_to_run: movement_tracker.snap_to_position_5
+  - run_at_second_mark: 5
+    action_to_run: start_recording
+  - run_at_second_mark: 6
+    action_to_run: movement_tracker.start_moving_forward
+  - run_at_second_mark: 6
+    action_to_run: movement_tracker.start_raising
+  - run_at_second_mark: 6.5
+    action_to_run: movement_tracker.start_turning_right
+  - run_at_second_mark: 10
+    action_to_run: movement_tracker.start_lowering
+  - run_at_second_mark: 10
+    action_to_run: movement_tracker.start_turning_left
+  - run_at_second_mark: 10
+    action_to_run: movement_tracker.start_moving_left
+  - run_at_second_mark: 15
+    action_to_run: movement_tracker.stop_lowering
+  - run_at_second_mark: 15
+    action_to_run: movement_tracker.stop_moving_left
+  - run_at_second_mark: 17
+    action_to_run: movement_tracker.stop_moving_forward
+  - run_at_second_mark: 18
+    action_to_run: movement_tracker.start_turning_left
+  - run_at_second_mark: 18
+    action_to_run: movement_tracker.start_moving_backward
+  - run_at_second_mark: 20
+    action_to_run: movement_tracker.stop_turning_left
+  - run_at_second_mark: 23
+    action_to_run: movement_tracker.start_zooming_in
+  - run_at_second_mark: 24
+    action_to_run: movement_tracker.start_zooming_out
+  - run_at_second_mark: 24
+    action_to_run: movement_tracker.stop_moving_backward
+  - run_at_second_mark: 25
+    action_to_run: movement_tracker.level_out
+  - run_at_second_mark: 25.5
+    action_to_run: movement_tracker.move_to_position_5
+  - run_at_second_mark: 37
+    action_to_run: stop_recording
+  - run_at_second_mark: 37.5
+    action_to_run: pause_gameplay
+  - run_at_second_mark: 38
+    action_to_run: take_snapshot
+  - run_at_second_mark: 40
+    action_to_run: power_off
