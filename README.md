@@ -9,7 +9,7 @@ for the Sims 3 in-game camera.
 ### How to run it in-general
 - Navigate to the project in command prompt
 - Run `python . --use=(file)`, with file being the YAML file relative to the workspace directory.
-- The program will tell you to open your game window. Do that within 10 seconds of starting he program.
+- The program will tell you to open your game window. Do that within 10 seconds of starting the program.
 - Once it starts, it will go through the sequence, printing out its current point in the sequence
   and which action it's running, if any. At the end, it will print out a message saying the sequence is finished.
 
